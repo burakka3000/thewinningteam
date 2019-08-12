@@ -5,18 +5,22 @@ class Interface:
     def __init__(self, initial_balance):
         self.Portfolio = pf.Portfolio(balance = initial_balance)
         self.Data = dt.Data()
-        self.run = True
 
-        while run:
+        while True:
             run = input('Check stock price[S], check portfolio[P] or place order[O]?')
             if run == 'S':
-                print(self.Data.get_summary)
+                choice1 = input('[price/plot]?')
+                self.Data.get_data()
+                if choice1 == 'price':
+                    print('current price equals '+str(self.Data.get_summary(type= choice1)))
+                elif choice1 == 'plot':
+                    self.Data.get_summary(type=choice1)
 
             elif run == 'P':
                 choice2 = input('Check balance[B] or stock portfolio [P]?')
                 if choice2 == 'B':
-                    print('balance equals :'+self.Portfolio.get_balance())
-                if choice2 == 'P':
+                    print('balance equals :'+str(self.Portfolio.get_balance()))
+                elif choice2 == 'P':
                     print(self.Portfolio.get_stocks())
                 else:
                     print("That's not a valid command")
@@ -24,9 +28,8 @@ class Interface:
             elif run == 'O':
                 print('please specify order')
                 order_type = input('what is the order type: [Buy/Sell]')
-                
-            run = ""
-        else:
-            print('Thats not a valid command')
+            elif run == 'exit':
+                break
+
 
 
