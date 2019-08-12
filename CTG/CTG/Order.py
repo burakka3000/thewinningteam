@@ -8,9 +8,14 @@ class Order:
 
     def check_possible(self):
         if self.type == 'sell':
-            if self.volume> self.portfolio.get_stocks():
-                print ('not enough stocks')
+            try:
+                if self.volume> self.portfolio.get_stocks()[self.stock]:
+                    print ('not enough stocks')
+                    return False
+            except:
+                print('not enough stocks')
                 return False
+
         if (self.volume*self.data.get_summary())>self.portfolio.get_balance():
             print('Insufficient funds')
             return False
