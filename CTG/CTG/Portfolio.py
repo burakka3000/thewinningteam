@@ -2,13 +2,15 @@ import pandas as pd
 import numpy as np
 
 class Portfolio:
+    # Portfolio class
+    # contains the balance and the stock overview of the current portfolio
     def __init__(self, balance = 0):
         self.balance = balance # float containing balance on account in EUR
-        self.stocks = pd.DataFrame(columns=['stock','count']) # dataframe containing the stocks and the number owned, first column is stock name, second is count
+        self.stock_overview = {} # dataframe containing the stocks and the number owned, first column is stock name, second is count
         self.owner = [] # depicts owner of portfolio
 
     def __repr__(self):
-        return 'Portfolio of ' + self.owner.get_name
+        return 'Portfolio object with '+ str(self.balance)
 
     def get_balance(self):
         return self.balance
@@ -17,19 +19,22 @@ class Portfolio:
         return self.owner
 
     def get_stocks(self):
-        return self.stocks
+        return self.stock_overview
 
     def update_balance(self, cash_change):
         # changes the cash balance
         if self.balance>cash_change:
             self.balance += cash_change
         else:
-            Exception('Not enough funds, should be checked before')
+            Exception('Not enough funds, should be checked in order class')
 
     def update_stocks(self, stock_name, number_of_stocks):
         # checks if stock exists, if not add it, if it does change the number of stocks
-        if stock_name in self.stocks.stock:
-            self.stocks.loc[,'count']
+        if stock_name in self.stock_overview:
+            self.stock_overview[stock_name] += number_of_stocks
+        else:
+            self.stock_overview[stock_name] = number_of_stocks
+
 
 
 
