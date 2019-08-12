@@ -6,7 +6,7 @@ class Portfolio:
     # contains the balance and the stock overview of the current portfolio
     def __init__(self, balance = 0):
         self.balance = balance # float containing balance on account in EUR
-        self.stock_overview = {} # dataframe containing the stocks and the number owned, first column is stock name, second is count
+        self.stock_overview = {} # Dictionairy containing the stocks and the number owned, first column is stock name, second is count
         self.owner = [] # depicts owner of portfolio
 
     def __repr__(self):
