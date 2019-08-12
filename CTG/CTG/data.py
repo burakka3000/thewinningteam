@@ -31,8 +31,7 @@ class Data():
         self.type = type
 
         if self.type == 'price':
-            price = pd.to_numeric(self._data['4. close'])[0]
-            print(price)
+            return pd.to_numeric(self._data['4. close'])[0]
         elif self.type == 'plot':
             pd.to_numeric(self._data['4. close']).plot()
 

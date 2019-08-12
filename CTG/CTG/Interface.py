@@ -9,7 +9,12 @@ class Interface:
         while True:
             run = input('Check stock price[S], check portfolio[P] or place order[O]?')
             if run == 'S':
-                print(self.Data.get_summary)
+                choice1 = input('[price/plot]?')
+                self.Data.get_data()
+                if choice1 == 'price':
+                    print('current price equals '+str(self.Data.get_summary(type= choice1)))
+                elif choice1 == 'plot':
+                    self.Data.get_summary(type=choice1)
 
             elif run == 'P':
                 choice2 = input('Check balance[B] or stock portfolio [P]?')
