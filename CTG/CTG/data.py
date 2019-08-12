@@ -1,4 +1,5 @@
 import numpy as np
+import matplotlib as plt
 import pandas as pd
 import requests
 
@@ -26,29 +27,13 @@ class Data():
             df.fillna(method='ffill') #fill na values if there are any
         self._data = df #make the df private and accessible within the class (for other methods)
 
-    def get_summary(self, type='stats'):
+    def get_summary(self, type='price'):
         self.type = type
-        if type = 'stats':
 
-            
+        if self.type == 'price':
+            price = pd.to_numeric(self._data['4. close'])[0]
+            print(price)
+        elif self.type == 'plot':
+            pd.to_numeric(self._data['4. close']).plot()
 
-
-
-        self._data
-
-
-
-
-
-response = requests.get(
-    "https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=MSFT&interval=5min&outputsize=full&apikey=demo")
-# Since we are retrieving stuff from a web service, it's a good idea to check for the return status code
-# See: https://en.wikipedia.org/wiki/List_of_HTTP_status_codes
-if response.status_code != 200:
-    raise ValueError("Could not retrieve data, code:", response.status_code)
-
-# The service sends JSON data, we parse that into a Python datastructure
-raw_data = response.json()
-
-df = pd.DataFrame.from_dict(raw_data['Time Series (5min)']).T
 
