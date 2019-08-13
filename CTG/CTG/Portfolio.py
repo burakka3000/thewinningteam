@@ -1,7 +1,7 @@
 class Portfolio:
     # Portfolio class
     # contains the balance and the stock overview of the current portfolio
-    def __init__(self,data, balance = 0, ):
+    def __init__(self,data, balance = 0):
         self.balance = balance # float containing balance on account in EUR
         self.stock_overview = {} # Dictionairy containing the stocks and the number owned, first column is stock name, second is count
         self.owner = [] # depicts owner of portfolio
@@ -31,7 +31,7 @@ class Portfolio:
         if self.balance>cash_change:
             self.balance += cash_change
         else:
-            Exception('Not enough funds, should be checked in order class')
+            raise Exception('Not enough funds, should be checked in order class')
 
     def update_stocks(self, stock_name, number_of_stocks):
         # checks if stock exists, if not add it, if it does change the number of stocks
@@ -49,7 +49,13 @@ class Portfolio:
         if self.stock_overview:
             print('stock value: ' + str(self.get_stock_value()))
 
+    def execute_order(self, order):
+        # executes order given order object
 
-
+        if order.check_possible():
+            self.update_balance(-1 * order.volume * self.data.summary().loc[['price',self.data.summary()['ticker']==self.order.stock]])
+            self.update_stocks(order.stock,order.volume)
+        else:
+            print('order failed')
 
 
