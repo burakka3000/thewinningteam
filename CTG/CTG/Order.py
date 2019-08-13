@@ -1,6 +1,6 @@
 
 class Order:
-    def __init__(self,type, stock, volume, data, portfolio, limit = 0, stop = 0 ):
+    def __init__(self,type, stock, volume, data, portfolio, limit = 1000000, stop = 0 ):
         self.type = type
         self.stock = stock
         self.volume = volume
@@ -20,11 +20,15 @@ class Order:
             except:
                 print('stock not in portfolio')
                 return False
-            if (self.data.get_summary()> self.stop):
-                print()
+
+            if (self.data.get_summary()< self.stop):
+                print('Order has been stopped')
                 return False
+
         elif (self.data.get_summary()> self.limit):
-            print('Limit Order')
+            print('Order has been limited')
+            return False
+
         elif (self.volume*self.data.get_summary())>self.portfolio.get_balance():
             print('Insufficient funds')
             return False
