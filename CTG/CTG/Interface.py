@@ -1,8 +1,8 @@
-import CTG.CTG.Portfolio as pf
-import CTG.CTG.data as dt
-import CTG.CTG.Order as ord
 import pandas as pd
 import datetime
+import CTG.Portfolio as pf
+import CTG.data as dt
+import CTG.Order as ord
 
 class Interface:
     def __init__(self, initial_balance):
@@ -61,6 +61,5 @@ class Logbook:
                              'stock_value': portfolio.get_stock_value(),
                              'total_value': portfolio.get_balance() + portfolio.get_stock_value()
                              },ignore_index=True)
-
 
 
