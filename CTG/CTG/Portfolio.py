@@ -23,7 +23,7 @@ class Portfolio:
     def get_stock_value(self):
         value = 0
         for stock in self.stock_overview:
-            value += self.stock_overview[stock]* self.data.summary().loc[['price',self.data.summary()['ticker']==stock]]
+            value += self.stock_overview[stock]* self.data.summary().loc[['Price',self.data.summary()['Ticker']==stock]]
         return value
 
     def update_balance(self, cash_change):
@@ -53,7 +53,7 @@ class Portfolio:
         # executes order given order object
 
         if order.check_possible():
-            self.update_balance(-1 * order.volume * self.data.summary().loc[['price',self.data.summary()['ticker']==self.order.stock]])
+            self.update_balance(-1 * order.volume * self.data.summary().loc[['Price',self.data.summary()['Ticker']==self.order.stock]])
             self.update_stocks(order.stock,order.volume)
         else:
             print('order failed')

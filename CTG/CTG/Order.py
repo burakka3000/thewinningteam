@@ -50,7 +50,7 @@ class Order:
                 print('Buy order has been limited as the stock price is too high')
                 return False
 
-        elif self._volume*self._data.summary.loc(1, self._stock)>self._portfolio.get_balance():
+        elif (self._volume * self._data.summary().loc[['Price', self._data.summary()['Ticker']==self._stock]]) > self.portfolio.get_balance():
             print('Insufficient funds')
             return False
 

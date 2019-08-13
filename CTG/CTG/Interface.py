@@ -12,7 +12,7 @@ class Interface:
         self.Log = Logbook()
 
         while True:
-            run = input('Check stock price[S], check portfolio[P], place order[O] or get logbook[L]? [exit] to exit')
+            run = input('Check stock price[S], check portfolio[P], place order[O] or get logbook[L]? [exit] to exit ')
             # get data
             if run == 'S':
                 self.Data.get_data()
@@ -25,15 +25,16 @@ class Interface:
             # place order
             elif run == 'O':
                 print('please specify order')
-                order_type = input('what is the order type: [buy/sell]')
+                order_type = input('what is the order type: [buy/sell] ')
                 stock = input('input stock ticker: ')
                 volume = float(input('enter volume: '))
-                limit = float(input('enter limit price: '))
-                stop = float(input('enter stop price: '))
+                try:
+                    limit = float(input('enter limit price: '))
+                    new_order = ord.Order(type = order_type, stock = stock, volume = volume, portfolio = self.Portfolio, data =self.Data, limit = limit)
+                except:
+                    new_order = ord.Order(type = order_type, stock = stock, volume = volume, portfolio = self.Portfolio, data =self.Data)
 
-                self.Data.get_data()
-                new_order = ord.Order(type = order_type, stock = stock, volume = volume, portfolio = self.Portfolio, data =self.Data, limit = limit, stop = stop)
-                new_order.execute()
+                self.Portfolio.execute_order(new_order)
                 self.Portfolio.get_summary()
 
             # get history
