@@ -1,5 +1,6 @@
 import numpy as np
 import pandas as pd
+import Logbook as lg
 
 class Order:
     def __init__(self,type, stock, volume, data, portfolio, limit = 1000000, stop = 0):
@@ -39,8 +40,9 @@ class Order:
 
     def execute(self):
         if self.check_possible():
-            self.status = 'success'
+            self.status = 'succeeded'
             self.portfolio.update_balance(-1*self.volume*self.data.get_summary())
             self.portfolio.update_stocks(stock_name=self.stock, number_of_stocks=self.volume)
         else:
             self.status = 'failed'
+        lg.update_log(self, self.stock, self.volume, self.status, self.portfolio)
