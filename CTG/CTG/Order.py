@@ -1,32 +1,32 @@
 class Order:
     def __init__(self,type, stock, volume, data, portfolio, limit = False):
         self._type = type
-        self.stock = stock
-        self.volume = volume
+        self._stock = stock
+        self._volume = volume
         if type == 'sell':
-            self.volume = -self.volume
-        self.data = data
-        self.portfolio = portfolio
-        self.limit = limit
+            self._volume = -volume
+        self._data = data
+        self._portfolio = portfolio
+        self._limit = limit
 
     @property
     def type(self):
         return self._type
     @property
     def stock(self):
-        return self.stock
+        return self._stock
     @property
     def  volume(self):
-        return self.volume
+        return self._volume
     @property
     def limit(self):
-        return self.limit
+        return self._limit
     @property
     def portfolio(self):
-        return self.portfolio
+        return self._portfolio
     @property
-    def portfolio(self):
-        return self.data
+    def data(self):
+        return self._data
 
 
     def check_possible(self):
