@@ -10,8 +10,8 @@ class Order:
             self.volume = -self.volume
         self.data = data
         self.portfolio = portfolio
-        self.limit = limit
-        self.stop = stop
+        self.limit = limit # If the current stock price is higher than the limit, the owner is not allowed to buy it
+        self.stop = stop # If the current stock price is lower that the stop, the owner is not allowed to sell it
 
     def check_possible(self):
         if self.type == 'sell':

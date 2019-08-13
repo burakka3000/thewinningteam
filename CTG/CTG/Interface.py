@@ -32,9 +32,11 @@ class Interface:
                 order_type = input('what is the order type: [buy/sell]')
                 stock = input('input stock ticker: ')
                 volume = float(input('enter volume: '))
+                limit = float(input('enter limit price: '))
+                stop = float(input('enter stop price: '))
 
                 self.Data.get_data()
-                new_order = ord.Order(type = order_type, stock = stock, volume = volume, portfolio = self.Portfolio, data =self.Data)
+                new_order = ord.Order(type = order_type, stock = stock, volume = volume, portfolio = self.Portfolio, data =self.Data, limit = limit, stop = stop)
                 new_order.execute()
                 self.Portfolio.get_summary()
 
@@ -47,7 +49,7 @@ class Interface:
 
 class Logbook:
     def __init__(self):
-        self.df = pd.DataFrame(columns={['time','stock','volume','order_success','cash','stock_value','total_value']})
+        self.df = pd.DataFrame(columns=['time','stock','volume','order_success','cash','stock_value','total_value'])
 
     def get_log(self):
         return self.df
