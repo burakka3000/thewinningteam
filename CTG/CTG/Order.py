@@ -1,6 +1,8 @@
+import numpy as np
+import pandas as pd
 
 class Order:
-    def __init__(self,type, stock, volume, data, portfolio, limit = 1000000, stop = 0 ):
+    def __init__(self,type, stock, volume, data, portfolio, limit = 1000000, stop = 0):
         self.type = type
         self.stock = stock
         self.volume = volume
@@ -37,5 +39,8 @@ class Order:
 
     def execute(self):
         if self.check_possible():
+            self.status = 'success'
             self.portfolio.update_balance(-1*self.volume*self.data.get_summary())
             self.portfolio.update_stocks(stock_name=self.stock, number_of_stocks=self.volume)
+        else:
+            self.status = 'failed'
