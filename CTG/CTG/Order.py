@@ -6,6 +6,8 @@ class Order:
         self.volume = volume
         if type == 'sell':
             self.volume = -self.volume
+        self.data = data
+        self.portfolio = portfolio
         self.limit = limit
         self.stop = stop
 
@@ -18,9 +20,15 @@ class Order:
             except:
                 print('stock not in portfolio')
                 return False
+            if (self.data.get_summary()> self.stop):
+                print()
+                return False
+        elif (self.data.get_summary()> self.limit):
+            print('Limit Order')
         elif (self.volume*self.data.get_summary())>self.portfolio.get_balance():
             print('Insufficient funds')
             return False
+
         return True
 
     def execute(self):
