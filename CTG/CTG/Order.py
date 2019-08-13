@@ -12,6 +12,22 @@ class Order:
     @property
     def type(self):
         return self._type
+    @property
+    def stock(self):
+        return self.stock
+    @property
+    def  volume(self):
+        return self.volume
+    @property
+    def limit(self):
+        return self.limit
+    @property
+    def portfolio(self):
+        return self.portfolio
+    @property
+    def portfolio(self):
+        return self.data
+
 
     def check_possible(self):
         if self.type == 'sell':
