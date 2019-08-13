@@ -1,7 +1,3 @@
-import pandas as pd
-import numpy as np
-import CTG.CTG.data
-
 class Portfolio:
     # Portfolio class
     # contains the balance and the stock overview of the current portfolio
@@ -9,11 +5,12 @@ class Portfolio:
         self.balance = balance # float containing balance on account in EUR
         self.stock_overview = {} # Dictionairy containing the stocks and the number owned, first column is stock name, second is count
         self.owner = [] # depicts owner of portfolio
-        self.data = data
+        self.data = data # data object
 
     def __repr__(self):
         return 'Portfolio object with '+ str(self.balance)
 
+    # change this to property
     def get_balance(self):
         return self.balance
 
@@ -26,7 +23,7 @@ class Portfolio:
     def get_stock_value(self):
         value = 0
         for stock in self.stock_overview:
-            value += self.stock_overview[stock]* self.data.get_summary()
+            value += self.stock_overview[stock]* self.data.summary().loc[['price',self.data.summary()['ticker']==stock]]
         return value
 
     def update_balance(self, cash_change):
@@ -43,6 +40,7 @@ class Portfolio:
         else:
             self.stock_overview[stock_name] = number_of_stocks
 
+    # change this to __str__ function
     def get_summary(self):
         # returns string with summary of portfolio
         print( 'current balance is: '+ str(self.balance))
