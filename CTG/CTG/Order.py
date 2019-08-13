@@ -1,6 +1,6 @@
 import numpy as np
 import pandas as pd
-import Logbook as lg
+#import Logbook as lg
 
 class Order:
     def __init__(self,type, stock, volume, data, portfolio, limit = 1000000, stop = 0):
