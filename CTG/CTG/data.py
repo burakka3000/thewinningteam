@@ -33,8 +33,7 @@ class Data():
         if self.type == 'price':
             return pd.to_numeric(self._data['4. close'])[0]
         elif self.type == 'plot':
-            fig, ax=plt.subplots()
-            pd.to_numeric(self._data['4. close']).plot(ax=ax)
+            fig = pd.to_numeric(self._data['4. close']).plot()
             fig.show()
 
 
