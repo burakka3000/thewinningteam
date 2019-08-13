@@ -45,4 +45,5 @@ class Order:
             self.portfolio.update_stocks(stock_name=self.stock, number_of_stocks=self.volume)
         else:
             self.status = 'failed'
+        lg.get_log()
         lg.update_log(self, self.stock, self.volume, self.status, self.portfolio)
