@@ -1,15 +1,18 @@
 import CTG.CTG.Portfolio as pf
 import CTG.CTG.data as dt
 import CTG.CTG.Order as ord
+import pandas as pd
+import datetime
 
 class Interface:
     def __init__(self, initial_balance):
-        self.Portfolio = pf.Portfolio(balance = initial_balance)
         self.Data = dt.Data()
         print('initialising portfolio...')
+        self.Portfolio = pf.Portfolio(balance = initial_balance, data = self.Data)
+        self.Log = Logbook()
 
         while True:
-            run = input('Check stock price[S], check portfolio[P] or place order[O]? [exit] to exit')
+            run = input('Check stock price[S], check portfolio[P], place order[O] or get logbook[L]? [exit] to exit')
             # get data
             if run == 'S':
                 choice1 = input('[price/plot]?')
@@ -35,8 +38,29 @@ class Interface:
                 new_order.execute()
                 self.Portfolio.get_summary()
 
+            # get history
+            elif run == 'L':
+                print(self.Log.get_log())
+
             elif run == 'exit':
                 break
+
+class Logbook:
+    def __init__(self):
+        self.df = pd.DataFrame(columns={['time','stock','volume','order_success','cash','stock_value','total_value']})
+
+    def get_log(self):
+        return self.df
+
+    def update_log(self,stock_name, volume,order_success, portfolio):
+        self.df.append({'time': datetime.datetime.now(),
+                             'stock':stock_name,
+                             'volume':volume,
+                             'order_success': order_success,
+                             'cash': portfolio.get_balance(),
+                             'stock_value': portfolio.get_stock_value(),
+                             'total_value': portfolio.get_balance() + portfolio.get_stock_value()
+                             },ignore_index=True)
 
 
 
