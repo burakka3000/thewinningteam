@@ -8,7 +8,7 @@ class Interface:
         self.Data = dt.Data()
 
         while True:
-            run = input('Check stock price[S], check portfolio[P] or place order[O]?')
+            run = input('Check stock price[S], check portfolio[P] or place order[O]? [exit] to exit')
             if run == 'S':
                 choice1 = input('[price/plot]?')
                 self.Data.get_data()
@@ -28,9 +28,9 @@ class Interface:
 
             elif run == 'O':
                 print('please specify order')
-                order_type = input('what is the order type: [Buy/Sell]')
+                order_type = input('what is the order type: [buy/sell]')
                 stock = input('input stock ticker: ')
-                volume = input('enter volume: ')
+                volume = float(input('enter volume: '))
                 self.Data.get_data()
                 new_order = ord.Order(type = order_type, stock = stock, volume = volume, portfolio = self.Portfolio, data =self.Data)
                 new_order.execute()
