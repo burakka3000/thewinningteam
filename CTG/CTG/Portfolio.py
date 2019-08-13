@@ -49,13 +49,15 @@ class Portfolio:
         if self.stock_overview:
             print('stock value: ' + str(self.get_stock_value()))
 
-    def execute_order(self, order):
+    def execute_order(self, Order,Log):
         # executes order given order object
 
-        if order.check_possible():
-            self.update_balance(-1 * order.volume * self.data.summary().loc[self.data.summary()['Ticker']==order.stock,'Price'].values)
-            self.update_stocks(order.stock,order.volume)
+        if Order.check_possible():
+            self.update_balance(-1 * Order.volume * self.data.summary().loc[self.data.summary()['Ticker']==Order.stock,'Price'].values)
+            self.update_stocks(Order.stock,Order.volume)
+            Log.update_log(stock_name=Order.stock, volume=Order.volume, order_success='yes', portfolio = self)
         else:
             print('order failed')
+            Log.update_log(stock_name=Order.stock, volume=Order.volume, order_success='no', portfolio = self)
 
 

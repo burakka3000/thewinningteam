@@ -34,7 +34,7 @@ class Interface:
                 except:
                     new_order = ord.Order(type = order_type, stock = stock, volume = volume, portfolio = self.Portfolio, data =self.Data)
 
-                self.Portfolio.execute_order(new_order)
+                self.Portfolio.execute_order(new_order,self.Log)
                 self.Portfolio.get_summary()
 
             # get history
@@ -52,13 +52,13 @@ class Logbook:
         return self.df
 
     def update_log(self,stock_name, volume,order_success, portfolio):
-        self.df.append({'time': datetime.datetime.now(),
-                             'stock':stock_name,
-                             'volume':volume,
-                             'order_success': order_success,
-                             'cash': portfolio.get_balance(),
-                             'stock_value': portfolio.get_stock_value(),
-                             'total_value': portfolio.get_balance() + portfolio.get_stock_value()
-                             },ignore_index=True)
+        self.df = self.df.append({'time': datetime.datetime.now(),
+                                  'stock':stock_name,
+                                  'volume':volume,
+                                  'order_success': order_success,
+                                  'cash': portfolio.get_balance(),
+                                  'stock_value': portfolio.get_stock_value(),
+                                  'total_value': portfolio.get_balance() + portfolio.get_stock_value()
+                                 },ignore_index=True)
 
 
