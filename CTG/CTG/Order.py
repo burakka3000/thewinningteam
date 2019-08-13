@@ -1,11 +1,13 @@
 
 class Order:
-    def __init__(self,type, stock, volume, data, portfolio):
+    def __init__(self,type, stock, volume, data, portfolio, limit = 0, stop = 0 ):
         self.type = type
         self.stock = stock
         self.volume = volume
         if type == 'sell':
             self.volume = -self.volume
+        self.limit = limit
+        self.stop = stop
 
     def check_possible(self):
         if self.type == 'sell':
