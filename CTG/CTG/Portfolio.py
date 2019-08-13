@@ -1,6 +1,6 @@
 import pandas as pd
 import numpy as np
-import CTG.CTG.data
+import CTG.data
 
 class Portfolio:
     # Portfolio class

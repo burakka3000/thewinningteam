@@ -47,7 +47,7 @@ class Data():
         self._summary = summary_df
 
 
-    def get_summary(self):
+    def summary(self):
         # this method returns to the interface the table of latest price values 
         return self._summary
 

@@ -15,12 +15,8 @@ class Interface:
             run = input('Check stock price[S], check portfolio[P], place order[O] or get logbook[L]? [exit] to exit')
             # get data
             if run == 'S':
-                choice1 = input('[price/plot]?')
                 self.Data.get_data()
-                if choice1 == 'price':
-                    print('current price equals '+str(self.Data.get_summary(type= choice1)))
-                elif choice1 == 'plot':
-                    self.Data.get_summary(type=choice1)
+                print(self.Data.summary())
 
             # check portfolio
             elif run == 'P':
