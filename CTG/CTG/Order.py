@@ -1,18 +1,17 @@
-import numpy as np
-import pandas as pd
-import Logbook as lg
-
 class Order:
-    def __init__(self,type, stock, volume, data, portfolio, limit = 1000000, stop = 0):
-        self.type = type
+    def __init__(self,type, stock, volume, data, portfolio, limit = False):
+        self._type = type
         self.stock = stock
         self.volume = volume
         if type == 'sell':
             self.volume = -self.volume
         self.data = data
         self.portfolio = portfolio
-        self.limit = limit # If the current stock price is higher than the limit, the owner is not allowed to buy it
-        self.stop = stop # If the current stock price is lower that the stop, the owner is not allowed to sell it
+        self.limit = limit
+
+    @property
+    def type(self):
+        return self._type
 
     def check_possible(self):
         if self.type == 'sell':
@@ -24,26 +23,17 @@ class Order:
                 print('stock not in portfolio')
                 return False
 
-            if (self.data.get_summary()< self.stop):
-                print('Order has been stopped')
+            if (self.data.summary.loc(1, self.stock)< self.limit):
+                print('Sell order has been limited as the stock price is too low.')
                 return False
 
-        elif (self.data.get_summary()> self.limit):
-            print('Order has been limited')
-            return False
+        elif self.limit != False:
+            if (self.data.summary.loc(1, self.stock)()> self.limit):
+                print('Buy order has been limited as the stock price is too high')
+                return False
 
-        elif (self.volume*self.data.get_summary())>self.portfolio.get_balance():
+        elif (self.volume*self.data.summary.loc(1, self.stock))>self.portfolio.get_balance():
             print('Insufficient funds')
             return False
 
         return True
-
-    def execute(self):
-        if self.check_possible():
-            self.status = 'succeeded'
-            self.portfolio.update_balance(-1*self.volume*self.data.get_summary())
-            self.portfolio.update_stocks(stock_name=self.stock, number_of_stocks=self.volume)
-        else:
-            self.status = 'failed'
-        lg.get_log()
-        lg.update_log(self, self.stock, self.volume, self.status, self.portfolio)
