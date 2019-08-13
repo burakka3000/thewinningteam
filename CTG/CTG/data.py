@@ -34,15 +34,30 @@ class Data():
                 df.fillna(method='ffill') #fill na values if there are any
 
             dic_of_dfs[stock] = df #put the dataframe for every stock in this dictionary for every iteration of the loop
+
+        summary = {'AAPL' : pd.to_numeric(dic_of_dfs['AAPL']['4. close'][0]),
+                   'MSFT' : pd.to_numeric(dic_of_dfs['MSFT']['4. close'][0]),
+                   'WFC' : pd.to_numeric(dic_of_dfs['WFC']['4. close'][0]),
+                   'JNJ' : pd.to_numeric(dic_of_dfs['JNJ']['4. close'][0]),
+                   'DIS' : pd.to_numeric(dic_of_dfs['DIS']['4. close'][0])}
+
+        summary_df = pd.DataFrame(list(summary.items()), columns=['Ticker', 'Price'])
+
         self._data = dic_of_dfs #make the dict private and accessible within the class (for other methods)
+        self._summary = summary_df
 
-    def get_summary(self, type='price'):
-        self.type = type
 
-        if self.type == 'price': #if user wants price, the interface will return the latest recorded price for the stock
-            return pd.to_numeric(self._data['4. close'])[0]
-        elif self.type == 'plot': #if user wants a plot of historical price data, this will show the plot
-            fig = pd.to_numeric(self._data['4. close']).plot()
-            fig.show()
+    def get_summary(self):
+        # this method returns to the interface the table of latest price values 
+        return self._summary
+
+
+        # self.type = type
+
+        # if self.type == 'price': #if user wants price, the interface will return the latest recorded price for the stock
+        #     return pd.to_numeric(self._data['4. close'])[0]
+        # elif self.type == 'plot': #if user wants a plot of historical price data, this will show the plot
+        #     fig = pd.to_numeric(self._data['4. close']).plot()
+        #     fig.show()
 
 
