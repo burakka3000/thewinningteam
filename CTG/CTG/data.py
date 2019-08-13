@@ -1,5 +1,5 @@
 import numpy as np
-import matplotlib as plt
+import matplotlib.pyplot as plt
 import pandas as pd
 import requests
 
@@ -14,7 +14,7 @@ class Data():
 
     def get_data(self):
         response = requests.get(
-            "https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=MSFT&interval=5min&outputsize=full&apikey=demo")
+            "https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=JNJ&interval=5min&outputsize=full&apikey=9JIMZ4CS31GW2257")
         # Since we are retrieving stuff from a web service, it's a good idea to check for the return status code
         # See: https://en.wikipedia.org/wiki/List_of_HTTP_status_codes
         if response.status_code != 200:
@@ -33,6 +33,8 @@ class Data():
         if self.type == 'price':
             return pd.to_numeric(self._data['4. close'])[0]
         elif self.type == 'plot':
-            pd.to_numeric(self._data['4. close']).plot()
+            fig, ax=plt.subplots()
+            pd.to_numeric(self._data['4. close']).plot(ax=ax)
+            fig.show()
 
 

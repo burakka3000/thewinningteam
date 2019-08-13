@@ -1,6 +1,6 @@
-import CTG.CTG.Portfolio as pf
-import CTG.CTG.data as dt
-import CTG.CTG.Order as ord
+import CTG.Portfolio as pf
+import CTG.data as dt
+import CTG.Order as ord
 
 class Interface:
     def __init__(self, initial_balance):
@@ -37,6 +37,5 @@ class Interface:
 
             elif run == 'exit':
                 break
-
 
 
