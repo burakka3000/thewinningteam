@@ -35,6 +35,13 @@ class Portfolio:
         else:
             self.stock_overview[stock_name] = number_of_stocks
 
+    def get_summary(self):
+        # returns string with summary of portfolio
+        print( 'current balance is: '+ str(self.balance))
+        print('stock; volume')
+        print(self.stock_overview)
+
+
 
 
 
