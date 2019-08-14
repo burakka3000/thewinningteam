@@ -1,5 +1,5 @@
 class Order:
-    def __init__(self,type, stock, volume, data, limit = False):
+    def __init__(self,type: str, stock, volume, data, limit = False) -> None:
         self._type = type
         self._stock = stock
         self._volume = volume
@@ -11,37 +11,37 @@ class Order:
         self._limit = limit
 
 
-    def check_possible(self):
-        if self._type == 'sell':
-            try:
-                if (-1*self._volume)> self._portfolio.get_stocks()[self._stock]:
-                    print ('not enough stocks')
-                    return False
-            except:
-                print('stock not in portfolio')
-                return False
-
-            if self._data.summary.loc(1, self._stock)< self._limit:
+    def check_possible(self) -> bool:
+        if self._type == "sell" or "buy":
+            pass
+        else:
+            print("Check your order type")
+            return False
+        if self._stock in self._data.summary()['Ticker']:
+            pass
+        else:
+            print("The stock does not exist")
+            return False
+        if self._volume > 0:
+             pass
+        else:
+            print("Check your order volume")
+            return False
+        if self._type =="sell":
+            if self._data.summary().loc[self._data.summary()['Ticker']==self._stock,'Price'].values < self._limit:
                 print('Sell order has been limited as the stock price is too low.')
                 return False
-
-        elif self._limit:
-            if self._data.summary.loc(1, self._stock)()> self._limit:
-                print('Buy order has been limited as the stock price is too high')
-                return False
-
-        elif (self._volume * self._data.summary().loc[self._data.summary()['Ticker']==self._stock,'Price'].values) > self.portfolio.get_balance():
-            print('Insufficient funds')
+        elif self._data.summary().loc[self._data.summary()['Ticker']==self._stock,'Price'].values:
+            print('Buy order has been limited as the stock price is too high')
             return False
 
-        return True
 
     def stock_price(self):
         self._stock_price = self._data.summary().loc[self._data.summary()['Ticker']==self._stock,'Price'].values
         return self._stock_price
 
     def cash_flow(self):
-        self._cash_flow = self._stock_price * self._volume
+        self._cash_flow = - self._stock_price * self._volume
         return self._cash_flow
 
 
