@@ -51,9 +51,11 @@ class Interface:
             # get history
             elif run == 'L':
                 print(self.Log.get_log())
+                print('Remember: jetfuel cant melt steel beams')
 
             # exit loop
             elif run == 'exit':
+                print('Before you go: 9/11 was an inside job')
                 break
 
 class Logbook:
