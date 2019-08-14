@@ -77,7 +77,7 @@ class Portfolio:
 
     def execute_order(self, Order,Log):
         # executes order given order object
-        if self.check_order(self,Order=Order):
+        if self.check_order(Order):
             self.update_balance(Order.cash_flow)
             self.update_stocks(Order.stock,Order.volume)
             Log.update_log(stock_name=Order.stock, volume=Order.volume, order_success='yes', portfolio = self)
