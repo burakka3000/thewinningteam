@@ -17,14 +17,10 @@ class Order:
         else:
             print("Check your order type")
             return False
-        if self._stock in self._data.summary()['Ticker']:
-            pass
-        else:
+        if self._stock not in stocks:
             print("The stock does not exist")
             return False
-        if self._volume > 0:
-             pass
-        else:
+        if self._volume < 1:
             print("Check your order volume")
             return False
         if self._type =="sell":
