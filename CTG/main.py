@@ -4,5 +4,5 @@ if __name__ == "__main__":
 
     stocks = ['AAPL','MSFT', 'WFC', 'JNJ', 'DIS']
 
-    x = int(input('Ante up madafaka: '))
+    x = int(input('Ante up B: '))
     irf.Interface(x)
