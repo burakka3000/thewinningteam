@@ -45,23 +45,13 @@ class Portfolio:
             self._stock_overview[stock_name] = number_of_stocks
 
     # change this to __str__ function
-    def __str__(self):
+    def get_summary(self):
         # returns string with summary of portfolio
         print( 'current balance is: '+ str(self.balance))
         print('stock; volume')
         print(self.stock_overview)
         if self.stock_overview:
             print('stock value: ' + str(self.get_stock_value()))
-
-    def execute_order(self, Order,Log):
-        # executes order given order object
-        if Order.check_possible():
-            self.update_balance(Order.cash_flow)
-            self.update_stocks(Order.stock,Order.volume)
-            Log.update_log(stock_name=Order.stock, volume=Order.volume, order_success='yes', portfolio = self)
-        else:
-            print('order failed')
-            Log.update_log(stock_name=Order.stock, volume=Order.volume, order_success='no', portfolio = self)
 
     def check_order(self,Order) :
         "checks whether order is possible on portfolio"
@@ -83,3 +73,15 @@ class Portfolio:
                 return False
 
         return True
+
+
+    def execute_order(self, Order,Log):
+        # executes order given order object
+        if self.check_order(self,Order=Order):
+            self.update_balance(Order.cash_flow)
+            self.update_stocks(Order.stock,Order.volume)
+            Log.update_log(stock_name=Order.stock, volume=Order.volume, order_success='yes', portfolio = self)
+        else:
+            print('order failed')
+            Log.update_log(stock_name=Order.stock, volume=Order.volume, order_success='no', portfolio = self)
+
