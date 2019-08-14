@@ -25,9 +25,21 @@ class Interface:
             # place order
             elif run == 'O':
                 print('please specify order')
-                order_type = input('what is the order type: [buy/sell] ')
-                stock = input('input stock ticker: ')
-                volume = float(input('enter volume: '))
+                while True:
+                    order_type = input('what is the order type: [buy/sell] ')
+                    if order_type.lower() in ["buy", "sell"]:
+                        break
+                    print("Check your order type")
+                while True:
+                    stock = input('input stock ticker: ')
+                    if stock in ['AAPL','MSFT', 'WFC', 'JNJ', 'DIS']:
+                        break
+                    print("Check your stock symbol")
+                while True:
+                    volume = float(input('enter volume: '))
+                    if volume >0:
+                        break
+                    print("Volume can't be lower than 1.")
                 try:
                     limit = float(input('enter limit price: '))
                     new_order = ord.Order(type = order_type, stock = stock, volume = volume, data =self.Data, limit = limit)
