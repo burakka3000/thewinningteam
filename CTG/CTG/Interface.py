@@ -56,9 +56,9 @@ class Logbook:
                                   'stock':stock_name,
                                   'volume':volume,
                                   'order_success': order_success,
-                                  'cash': portfolio.get_balance(),
+                                  'cash': portfolio.balance,
                                   'stock_value': portfolio.get_stock_value(),
-                                  'total_value': portfolio.get_balance() + portfolio.get_stock_value()
+                                  'total_value': portfolio.balance + portfolio.get_stock_value()
                                  },ignore_index=True)
 
 

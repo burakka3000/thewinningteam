@@ -68,7 +68,7 @@ class Portfolio:
 
         # check if enough money
         if Order.type == 'buy':
-            if Order.cash_flow>self._balance:
+            if -Order.cash_flow>self._balance:
                 print('No munnie! How you pay therefore?')
                 return False
 

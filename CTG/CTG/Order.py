@@ -25,16 +25,16 @@ class Order:
             print("Check your order volume")
             return False
         if self._type =="sell":
-            if self._data.summary().loc[self._data.summary()['Ticker']==self._stock,'Price'].values < self._limit:
+            if self._data.summary.loc[self._data.summary['Ticker']==self._stock,'Price'].values < self._limit:
                 print('Sell order has been limited as the stock price is too low.')
                 return False
-        elif self._data.summary().loc[self._data.summary()['Ticker']==self._stock,'Price'].values:
+        elif self._data.summary.loc[self._data.summary['Ticker']==self._stock,'Price'].values:
             print('Buy order has been limited as the stock price is too high')
             return False
 
 
     def cal_stock_price(self):
-        stock_price = self._data.summary().loc[self._data.summary()['Ticker']==self._stock,'Price'].values
+        stock_price = self._data.summary.loc[self._data.summary['Ticker']==self._stock,'Price'].values
         return stock_price
 
     def calc_cash_flow(self):
