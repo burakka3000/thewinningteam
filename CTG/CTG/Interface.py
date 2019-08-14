@@ -43,7 +43,7 @@ class Interface:
                         break
                     print("Volume can't be lower than 1.")
 
-                    new_order = ord.Order(type = order_type, stock = stock, volume = volume, data =self.Data)
+                new_order = ord.Order(type = order_type, stock = stock, volume = volume, data =self.Data)
 
                 self.Portfolio.execute_order(new_order,self.Log)
                 self.Portfolio.get_summary()
