@@ -18,7 +18,7 @@ class Data():
         today = date.today()
 
         try:
-            summary_df = pd.read_csv("stock-data-"+str(today).split("-")[2]+"-"+str(today).split("-")[1]+".csv", sep=",", index_col='Unnamed: 0'))
+            summary_df = pd.read_csv("stock-data-"+str(today).split("-")[2]+"-"+str(today).split("-")[1]+".csv", sep=",", index_col='Unnamed: 0')
             self._summary = summary_df
 
         except:
@@ -55,7 +55,7 @@ class Data():
             self._data = dic_of_dfs #make the dict private and accessible within the class (for other methods)
             self._summary = summary_df
 
-
+    @property
     def summary(self):
         # this method returns to the interface the table of latest price values 
         return self._summary
