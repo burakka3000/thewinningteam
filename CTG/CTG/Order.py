@@ -10,28 +10,6 @@ class Order:
         self._data = data
         self._limit = limit
 
-    @property
-    def type(self):
-        return self._type
-    @property
-    def stock(self):
-        return self._stock
-    @property
-    def  volume(self):
-        return self._volume
-    @property
-    def limit(self):
-        return self._limit
-    @property
-    def data(self):
-        return self._data
-    @property
-    def stock_price(self):
-        return self._stock_price
-    @property
-    def cash_flow(self):
-        return self._cash_flow
-
 
     def check_possible(self):
         if self._type == 'sell':
@@ -59,8 +37,32 @@ class Order:
         return True
 
     def stock_price(self):
-        price = self._data.summary().loc[self._data.summary()['Ticker']==self._stock,'Price'].values)
+        self._stock_price = self._data.summary().loc[self._data.summary()['Ticker']==self._stock,'Price'].values
+        return self._stock_price
 
     def cash_flow(self):
-        return self._volume*
+        self._cash_flow = self._stock_price * self._volume
+        return self._cash_flow
 
+
+    @property
+    def type(self):
+        return self._type
+    @property
+    def stock(self):
+        return self._stock
+    @property
+    def  volume(self):
+        return self._volume
+    @property
+    def limit(self):
+        return self._limit
+    @property
+    def data(self):
+        return self._data
+    @property
+    def stock_price(self):
+        return self._stock_price
+    @property
+    def cash_flow(self):
+        return self._cash_flow
