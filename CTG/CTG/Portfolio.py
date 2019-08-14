@@ -25,7 +25,7 @@ class Portfolio:
     def get_stock_value(self):
         value = 0
         for stock in self._stock_overview:
-            value += self._stock_overview[stock]* self.data.summary().loc[self.data.summary()['Ticker']==stock,'Price'].values
+            value += self._stock_overview[stock]* self.data.summary.loc[self.data.summary['Ticker']==stock,'Price'].values
         return value
 
     # make this a setter function
