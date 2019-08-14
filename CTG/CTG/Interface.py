@@ -16,7 +16,7 @@ class Interface:
             # get data
             if run == 'S':
                 self.Data.get_data()
-                print(self.Data.summary())
+                print(self.Data.summary)
 
             # check portfolio
             elif run == 'P':
