@@ -11,28 +11,6 @@ class Order:
         self._limit = limit
 
 
-
-    def check_possible(self) -> bool:
-        if self._type == "sell" or "buy":
-            pass
-        else:
-            print("Check your order type")
-            return False
-        if self._stock not in stocks:
-            print("The stock does not exist")
-            return False
-        if self._volume < 1:
-            print("Check your order volume")
-            return False
-        if self._type =="sell":
-            if self._data.summary.loc[self._data.summary['Ticker']==self._stock,'Price'].values < self._limit:
-                print('Sell order has been limited as the stock price is too low.')
-                return False
-        elif self._data.summary.loc[self._data.summary['Ticker']==self._stock,'Price'].values:
-            print('Buy order has been limited as the stock price is too high')
-            return False
-
-
     def cal_stock_price(self):
         stock_price = self._data.summary.loc[self._data.summary['Ticker']==self._stock,'Price'].values
         return stock_price

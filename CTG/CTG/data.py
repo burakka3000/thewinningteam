@@ -19,6 +19,7 @@ class Data():
 
         try:
             summary_df = pd.read_csv("stock-data-"+str(today).split("-")[2]+"-"+str(today).split("-")[1]+".csv", sep=",", index_col='Unnamed: 0')
+            summary_df['Timestamp'] = datetime.now()
             self._summary = summary_df
 
         except:
@@ -64,7 +65,7 @@ class Data():
         shocks *= (((delta_time/60))**0.5)*0.01
 
         for i in range(len(shocks)):
-            self.summary["Price"][i] *= np.exp(shocks[i])
-            self.summary['Timestamp'][i] = current_time
+            self._summary.loc[i,"Price"] *= np.exp(shocks[i])
+            self._summary.loc[i,'Timestamp'] = current_time
             # summary_df["Price"][i] *= np.exp(shocks[i])
             # summary_df['Timestamp'][i] = current_time

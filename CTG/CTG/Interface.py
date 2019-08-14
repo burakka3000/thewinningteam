@@ -8,14 +8,15 @@ class Interface:
     def __init__(self, initial_balance):
         self.Data = dt.Data()
         print('initialising portfolio...')
+        self.Data.get_data()
         self.Portfolio = pf.Portfolio(balance = initial_balance, data = self.Data)
         self.Log = Logbook()
 
         while True:
+            self.Data.update()
             run = input('Check stock price[S], check portfolio[P], place order[O] or get logbook[L]? [exit] to exit ')
             # get data
             if run == 'S':
-                self.Data.get_data()
                 print(self.Data.summary)
 
             # check portfolio
