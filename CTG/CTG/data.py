@@ -2,7 +2,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import pandas as pd
 import requests
-from datetime import date
+from datetime import date, datetime
 
 
 class Data():
@@ -48,8 +48,23 @@ class Data():
             summary_df.to_csv("stock-data-"+str(today).split("-")[2]+"-"+str(today).split("-")[1]+".csv", sep=",")
 
             self._data = dic_of_dfs #make the dict private and accessible within the class (for other methods)
+            summary_df['Timestamp'] = datetime.now()
             self._summary = summary_df
 
     @property
     def summary(self):
         return self._summary # this method returns to the interface the table of latest price values
+
+    def update(self):
+        current_time = datetime.now()
+        #delta_time = self._summary['Timestamp'] - current_time
+        delta_time = current_time - self._summary['Timestamp'][0]
+        delta_time /= np.timedelta64(1, 's')
+        shocks = np.random.standard_normal(5)
+        shocks *= (((delta_time/60))**0.5)*0.01
+
+        for i in range(len(shocks)):
+            self.summary["Price"][i] *= np.exp(shocks[i])
+            self.summary['Timestamp'][i] = current_time
+            # summary_df["Price"][i] *= np.exp(shocks[i])
+            # summary_df['Timestamp'][i] = current_time
