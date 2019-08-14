@@ -5,6 +5,7 @@ import CTG.data as dt
 import CTG.Order as ord
 
 class Interface:
+    "Interface class is used to communicate with all classes and receive user input"
     def __init__(self, initial_balance):
         self.Data = dt.Data()
         print('initialising portfolio...')
@@ -41,10 +42,7 @@ class Interface:
                     if volume >0:
                         break
                     print("Volume can't be lower than 1.")
-                try:
-                    limit = float(input('enter limit price: '))
-                    new_order = ord.Order(type = order_type, stock = stock, volume = volume, data =self.Data, limit = limit)
-                except:
+
                     new_order = ord.Order(type = order_type, stock = stock, volume = volume, data =self.Data)
 
                 self.Portfolio.execute_order(new_order,self.Log)
@@ -54,6 +52,7 @@ class Interface:
             elif run == 'L':
                 print(self.Log.get_log())
 
+            # exit loop
             elif run == 'exit':
                 break
 
@@ -65,6 +64,7 @@ class Logbook:
         return self.df
 
     def update_log(self,stock_name, volume,order_success, portfolio):
+        "Updates log after an order has been placed"
         self.df = self.df.append({'time': datetime.datetime.now(),
                                   'stock':stock_name,
                                   'volume':volume,
