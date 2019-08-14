@@ -11,6 +11,7 @@ class Order:
         self._limit = limit
 
 
+
     def check_possible(self) -> bool:
         if self._type == "sell" or "buy":
             pass
@@ -32,13 +33,13 @@ class Order:
             return False
 
 
-    def stock_price(self):
-        self._stock_price = self._data.summary().loc[self._data.summary()['Ticker']==self._stock,'Price'].values
-        return self._stock_price
+    def cal_stock_price(self):
+        stock_price = self._data.summary().loc[self._data.summary()['Ticker']==self._stock,'Price'].values
+        return stock_price
 
-    def cash_flow(self):
-        self._cash_flow = - self._stock_price * self._volume
-        return self._cash_flow
+    def calc_cash_flow(self):
+        cash_flow = - self.stock_price * self._volume
+        return cash_flow
 
 
     @property
@@ -58,7 +59,7 @@ class Order:
         return self._data
     @property
     def stock_price(self):
-        return self._stock_price
+        return self.cal_stock_price()
     @property
     def cash_flow(self):
-        return self._cash_flow
+        return self.calc_cash_flow()
