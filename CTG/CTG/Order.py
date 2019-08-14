@@ -1,5 +1,5 @@
 class Order:
-    def __init__(self,type, stock, volume, data, portfolio, limit = False):
+    def __init__(self,type, stock, volume, data, limit = False):
         self._type = type
         self._stock = stock
         self._volume = volume
@@ -8,7 +8,6 @@ class Order:
         else:
             self._volume = volume
         self._data = data
-        self._portfolio = portfolio
         self._limit = limit
 
     @property
@@ -24,11 +23,14 @@ class Order:
     def limit(self):
         return self._limit
     @property
-    def portfolio(self):
-        return self._portfolio
-    @property
     def data(self):
         return self._data
+    @property
+    def stock_price(self):
+        return self._stock_price
+    @property
+    def cash_flow(self):
+        return self._cash_flow
 
 
     def check_possible(self):
@@ -55,3 +57,10 @@ class Order:
             return False
 
         return True
+
+    def stock_price(self):
+        price = self._data.summary().loc[self._data.summary()['Ticker']==self._stock,'Price'].values)
+
+    def cash_flow(self):
+        return self._volume*
+
