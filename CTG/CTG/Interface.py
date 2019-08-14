@@ -30,9 +30,9 @@ class Interface:
                 volume = float(input('enter volume: '))
                 try:
                     limit = float(input('enter limit price: '))
-                    new_order = ord.Order(type = order_type, stock = stock, volume = volume, portfolio = self.Portfolio, data =self.Data, limit = limit)
+                    new_order = ord.Order(type = order_type, stock = stock, volume = volume, data =self.Data, limit = limit)
                 except:
-                    new_order = ord.Order(type = order_type, stock = stock, volume = volume, portfolio = self.Portfolio, data =self.Data)
+                    new_order = ord.Order(type = order_type, stock = stock, volume = volume, data =self.Data)
 
                 self.Portfolio.execute_order(new_order,self.Log)
                 self.Portfolio.get_summary()
