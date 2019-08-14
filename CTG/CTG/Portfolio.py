@@ -56,12 +56,30 @@ class Portfolio:
     def execute_order(self, Order,Log):
         # executes order given order object
         if Order.check_possible():
-            self.update_balance(-1 * Order.volume * self.data.summary.loc[self.data.summary['Ticker']==Order.stock,'Price'].values)
+            self.update_balance(Order.cash_flow)
             self.update_stocks(Order.stock,Order.volume)
             Log.update_log(stock_name=Order.stock, volume=Order.volume, order_success='yes', portfolio = self)
         else:
             print('order failed')
             Log.update_log(stock_name=Order.stock, volume=Order.volume, order_success='no', portfolio = self)
 
-    def check_order(self,Order):
-        pass
+    def check_order(self,Order) :
+        "checks whether order is possible on portfolio"
+
+        # check if enough stocks when selling
+        if Order.type == 'sell':
+            try:
+                if (-1*Order.volume)> self._stock_overview[Order.stock]:
+                    print('not enough stock')
+                    return False
+            except:
+                print('stock not in portfolio')
+                return False
+
+        # check if enough money
+        if Order.type == 'buy':
+            if Order.cash_flow>self._balance:
+                print('No munnie! How you pay therefore?')
+                return False
+
+        return True
